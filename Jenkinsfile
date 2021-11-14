@@ -5,7 +5,8 @@ pipeline {
         stage('Get Code') {
             steps {
                 // Obtener código del repo
-                git 'https://github.com/anieto-unir/helloworld.git'
+                //git 'https://github.com/anieto-unir/helloworld.git'
+                checkout scm
             }
         }
         
@@ -31,6 +32,7 @@ pipeline {
                             set FLASK_APP=app\\api.py
                             set FLASK_ENV=development
                             start flask run
+                            start java -jar C:\\Unir\\Ejercicios\\wiremock\\wiremock-jre8-standalone-2.28.0.jar --port 9090 --root-dir C:\\Unir\\Ejercicios\\wiremock
                             set PYTHONPATH=C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Python
                             pytest --junitxml=result-rest.xml test\\rest
                         '''
