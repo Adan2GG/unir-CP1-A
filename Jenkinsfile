@@ -7,7 +7,7 @@ pipeline {
                 // Obtener código del repo
                 //git 'https://github.com/anieto-unir/helloworld.git'
                 //checkout scm
-				def commitHash = checkout(scm).GIT_COMMIT
+				commitHash = checkout(scm).GIT_COMMIT
             }
         }
         
