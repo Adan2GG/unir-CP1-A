@@ -6,13 +6,15 @@ pipeline {
             steps {
                 // Obtener código del repo
                 //git 'https://github.com/anieto-unir/helloworld.git'
-                checkout scm
+                //checkout scm
+				def commitHash = checkout(scm).GIT_COMMIT
             }
         }
         
         stage('Build') {
             steps {
                 echo 'Eyyy, esto es Python. No hay que compilar nada!!!'
+				echo commitHash
             }
         }
         
