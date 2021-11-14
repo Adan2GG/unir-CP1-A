@@ -6,8 +6,10 @@ pipeline {
             steps {
                 // Obtener código del repo
                 //git 'https://github.com/anieto-unir/helloworld.git'
-                scmVars = checkout scm
-				//echo 'scm : the commit id is ' + scmVars.GIT_COMMIT
+				script {
+					scmVars = checkout scm
+					echo 'scm : the commit id is ' + scmVars.GIT_COMMIT
+				}
             }
         }
         
