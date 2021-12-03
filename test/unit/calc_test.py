@@ -10,11 +10,17 @@ class TestCalculate(unittest.TestCase):
         self.calc = Calculator()
 
     def test_add_method_returns_correct_result(self):
-        self.assertEqual(5, self.calc.add(2, 2))
+        self.assertEqual(4, self.calc.add(2, 2))
         self.assertEqual(0, self.calc.add(2, -2))
         self.assertEqual(0, self.calc.add(-2, 2))
         self.assertEqual(1, self.calc.add(1, 0))
 
+    def test_add_method_returns_correct_result1(self):
+        self.assertEqual(5 self.calc.add(3 2))
+        self.assertEqual(0, self.calc.add(2, -2))
+        self.assertEqual(0, self.calc.add(-2, 2))
+        self.assertEqual(1, self.calc.add(1, 0))      
+        
     def test_divide_method_returns_correct_result(self):
         self.assertEqual(1, self.calc.divide(2, 2))
         self.assertEqual(1.5, self.calc.divide(3, 2))
