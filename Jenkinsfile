@@ -25,7 +25,7 @@ pipeline {
                 stage('Unit') {
                     steps {
                     		echo "Realizando pruebas unitarias"
-                		sh 'apt-get update && apt-get install -y python3-pip && rm -rf /var/lib/apt/lists/*; pip install pytest'
+				sh 'apt-get -o Acquire::Max-FutureTime=86400 update && apt-get install -y python3-pip && rm -rf /var/lib/apt/lists/*; pip install pytest'
                 		sh 'export  PYTHONPATH=$WORKSPACE; py.test --junitxml=result-unit.xml test/unit'
                 		//procesaría todos los ficheros de la ruta
                 		junit 'result*.xml'
