@@ -5,7 +5,7 @@ pipeline {
         stage('Get Code') {
             steps {
                 // Obtener código del repo
-                //git 'https://github.com/anieto-unir/helloworld.git'
+                //git 'https://github.com/ivngmz/helloworld.git'
 		script {
 			scmVars = checkout scm
 			echo 'scm : the commit id is ' + scmVars.GIT_COMMIT
