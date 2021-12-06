@@ -24,7 +24,7 @@ pipeline {
             parallel {
                 stage('Unit') {
                     steps {
-                    		echo "Realizando pruebas unitarias"
+                    		echo "Realizando algunas pruebas unitarias"
 				sh 'apt-get -o Acquire::Max-FutureTime=86400 update && apt-get install -y python3-pip && rm -rf /var/lib/apt/lists/*; pip install pytest'
                 		sh 'export  PYTHONPATH=$WORKSPACE; py.test --junitxml=result-unit.xml test/unit'
                 		//procesaría todos los ficheros de la ruta
