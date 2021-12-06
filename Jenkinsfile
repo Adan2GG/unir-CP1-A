@@ -24,23 +24,21 @@ pipeline {
             parallel {
                 stage('Unit') {
                     steps {
-                        bat '''
-                            set PYTHONPATH=%WORKSPACE%
-                            pytest --junitxml=result-unit.xml test\\unit
-                        '''
-                    }
+                    		echo "Realizando pruebas unitarias"
+                		sh 'apt-get update && apt-get install -y python3-pip && rm -rf /var/lib/apt/lists/*; pip install pytest'
+                		sh 'export  PYTHONPATH=$WORKSPACE; py.test --junitxml=result-unit.xml test/unit'
+                		//procesaría todos los ficheros de la ruta
+                		junit 'result*.xml'
+		    }
                 }
                 stage('Service') {
                     steps {
-                        bat '''
-                            set FLASK_APP=app\\api.py
-                            set FLASK_ENV=development
-                            start flask run
-                            start java -jar C:\\Unir\\Ejercicios\\wiremock\\wiremock-jre8-standalone-2.28.0.jar --port 9090 --root-dir C:\\Unir\\Ejercicios\\wiremock
-                            set PYTHONPATH=%WORKSPACE%
-                            pytest --junitxml=result-rest.xml test\\rest
-                        '''
-                    }    
+                    		echo "Realizando la prueba de microservicio"
+                		sh 'export FLASK_APP=app/api.py && export FLASK_ENV=development && nohup flask run > log.txt 2>&1 &'
+                		sh 'nohup java -jar /var/jenkins_home/javajars/wiremock-jre8-standalone-2.32.0.jar --port 9090 -v --root-dir /var/jenkins_home/mappings  > log.txt 2>&1 &'
+                		sh 'export  PYTHONPATH=$WORKSPACE; py.test --junitxml=result-unit.xml test/unit'
+                		junit 'result*.xml'
+		    }    
                 }
             }
         }
