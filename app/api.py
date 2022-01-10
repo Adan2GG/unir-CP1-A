@@ -7,7 +7,7 @@ from app.calc import Calculator
 
 CALCULATOR = Calculator()
 api_application = Flask(__name__)
-HEADERS            =             {"Content-Type": "text/plain", "Access-Control-Allow-Origin": "*"}
+HEADERS = {"Content-Type": "text/plain", "Access-Control-Allow-Origin": "*"}
 
 
 @api_application.route("/")
