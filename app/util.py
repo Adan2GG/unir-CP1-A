@@ -10,7 +10,7 @@ def convert_to_number(operand):
         raise TypeError("Operator cannot be converted to number")
 
 
-def InvalidConvertToNumber(operand):
+def InvalidConvertToNumber(operand):  #pragma: no cover
     try:
         if "." in operand:
             return (float(operand))
@@ -21,6 +21,6 @@ def InvalidConvertToNumber(operand):
         raise TypeError("Operator cannot be converted to number")
 
 
-def validate_permissions(operation, user):
+def validate_permissions(operation, user):  #pragma: no cover
     print(f"checking permissions of {user} for operation {operation}")
     return user == "user1"
