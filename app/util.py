@@ -10,7 +10,7 @@ def convert_to_number(operand):
         raise TypeError("Operator cannot be converted to number")
 
 
-def InvalidConvertToNumber(operand):  # pragma: no cover
+def InvalidConvertToNumber(operand):  #pragma: no cover
     try:
         if "." in operand:
             return (float(operand))
