@@ -1,0 +1,57 @@
+pipeline
+{
+    agent any
+    
+    stages
+    {
+        stage('Get Code')
+        {
+            steps{
+                bat 'echo "Hello World!"'
+                git 'https://github.com/anieto-unir/helloworld.git'
+                bat 'dir'
+                bat 'echo %WORKSPACE%'
+            }
+        }
+        stage('Tests')
+        {
+            parallel
+            {
+                stage('Unit Test')
+                {
+                    steps {
+                      catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                        bat '''
+                            SET PYTHONPATH=%WORKSPACE%
+                            pytest --junitxml=result-unit.xml test\\unit
+                        '''
+                      }  
+                    }
+                }
+                stage('Rest Test')
+                {
+                    steps
+                    {
+                      catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                        bat '''
+                            set FLASK_APP=app\\api.py
+                            set FLASK_ENV=development
+                            start flask run
+                            start java -jar C:\\Unir\\Ejercicios\\wiremock\\wiremock-jre8-standalone-2.28.0.jar --port 9090 --root-dir C:\\Unir\\Ejercicios\\wiremock
+                            pytest --junitxml=result-rest.xml test\\rest
+                        '''
+                      }
+                    }
+                }
+            }
+        }
+        
+        stage('Results')
+        {
+            steps
+            {
+                junit 'result*.xml'
+            }
+        }
+    }
+}
