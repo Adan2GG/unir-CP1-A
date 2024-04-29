@@ -8,6 +8,7 @@ pipeline {
               echo 'Eyyy, esto es Python. No hay que compilar nada!!!'
 	          echo WORKSPACE
               sh 'ls -la'
+		   
            }
         }
      }
