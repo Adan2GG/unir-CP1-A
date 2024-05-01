@@ -1,6 +1,9 @@
 pipeline {
     agent any
-
+        options {
+                // Timeout counter starts BEFORE agent is allocated
+                timeout(time: 10, unit: 'SECONDS')
+            }
      stages {
 
         stage('Get Code') {
@@ -25,10 +28,10 @@ pipeline {
                      catchError(buildResult:'UNSTABLE',stageResult:'FAILURE') {
                          bat '''    
                             set FLASK_APP=app\\api.py
-                            start java -jar C:\\Users\\adan.garciagarcia\\Desktop\\CursoDevops\\Herramientas\\wiremock-standalone-3.5.4.jar --port 9090 --verbose --root-dir test\\wiremock
                             start flask run
                             
                             set PYTHONPATH=.
+                            start java -jar C:\\Users\\adan.garciagarcia\\Desktop\\CursoDevops\\Herramientas\\wiremock-standalone-3.5.4.jar --port 9090 --verbose --root-dir test\\wiremock
                             pytest --junitxml=result-rest.xml test\\rest
                         '''
                         }
