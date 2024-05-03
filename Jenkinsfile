@@ -7,7 +7,7 @@ pipeline {
         stage('Get Code') {
             agent any
             steps {
-                git 'https://github.com/Adan2GG/unir-CP1-A.git'
+                 git branch: "develop", url: 'https://github.com/Adan2GG/unir-CP1-A.git'
             }
         }
         stage('Tests') {
