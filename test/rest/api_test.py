@@ -17,16 +17,23 @@ class TestApi(unittest.TestCase):
 
     def test_api_add(self):
         url = f"{BASE_URL}/calc/add/1/2"
-        response = urlopen(url, timeout=DEFAULT_TIMEOUT)
-        self.assertEqual(
-            response.status, http.client.OK, f"Error en la petición API a {url}"
-        )
-        self.assertEqual(
+        try:
+            response = urlopen(url, timeout=DEFAULT_TIMEOUT)
+            self.assertEqual(
+                response.status, http.client.OK, f"Error en la petición API a {url}"
+            )
+            self.assertEqual(
             response.read().decode(), "3", "ERROR ADD"
-        )
+            )
+        except Exception as e:
+            if isinstance(e.reason, socket.timeout):
+                pass
+                raise e 
+            
 
     def test_api_sqrt(self):
         url = f"{BASE_URL_MOCK}/calc/sqrt/64"
+        try:
         response = urlopen(url, timeout=DEFAULT_TIMEOUT)
         self.assertEqual(
             response.status, http.client.OK, f"Error en la petición API a {url}"
@@ -34,6 +41,38 @@ class TestApi(unittest.TestCase):
         self.assertEqual(
             response.read().decode(), "8", "ERROR SQRT"
         )
+        except Exception as e:
+            if isinstance(e.reason, socket.timeout):
+                pass
+                raise e 
+    def test_api_multiply(self):
+        url = f"{BASE_URL}/calc/multiply/2/2"
+        try:
+        response = urlopen(url, timeout=DEFAULT_TIMEOUT)
+        self.assertEqual(
+            response.status, http.client.OK, f"Error en la petición API a {url}"
+        )
+        self.assertEqual(
+            response.read().decode(), "4", "ERROR MULTIPLY"
+        )
+        except Exception as e:
+            if isinstance(e.reason, socket.timeout):
+                pass
+                raise e 
+    def test_api_divide(self):
+    url = f"{BASE_URL}/calc/divide/4/2"
+    try:
+        response = urlopen(url, timeout=DEFAULT_TIMEOUT)
+        self.assertEqual(
+            response.status, http.client.OK, f"Error en la petición API a {url}"
+        )
+        self.assertEqual(
+            response.read().decode(), "2", "ERROR DIVIDE"
+        )
+        except Exception as e:
+            if isinstance(e.reason, socket.timeout):
+                pass
+                raise e 
 
 if __name__ == "__main__":  # pragma: no cover
     unittest.main()
