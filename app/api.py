@@ -9,7 +9,6 @@ CALCULATOR = Calculator()
 api_application = Flask(__name__)
 HEADERS = {"Content-Type": "text/plain", "Access-Control-Allow-Origin": "*"}
 
-
 @api_application.route("/")
 def hello():
     return "Hello from The Calculator!\n"
